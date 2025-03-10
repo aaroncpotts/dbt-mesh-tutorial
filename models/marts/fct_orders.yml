@@ -1,10 +1,11 @@
 models:
   - name: fct_orders
+    latest_version: 1
     config:
       contract:
         enforced: true
     columns:
-      - name: order_id
+      - name: order_item_id
         data_type: string
         constraints:
           - type: not_null
@@ -32,3 +33,15 @@ models:
         data_type: float64
       - name: tax_rate
         data_type: float64
+    versions:
+      - v: 1
+        config:
+          alias: fct_orders
+      - v: 2
+        columns:
+          - name: order_amount ##v2 Adds in new column name and date type change
+            data_type: float64
+          - name: location_opened_at
+            data_type: date
+          - include: all #Includes all other fields
+            exclude: [order_total] #But removes the old name of order_total
