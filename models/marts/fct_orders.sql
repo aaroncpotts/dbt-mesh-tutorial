@@ -1,7 +1,7 @@
 with orders as (
     select * from {{ ref('int_orders') }}
 ),
-
+/* This is BigQuery, so we have to use their super special EXTRACT function because they're special*/
 final as (
     select 
         order_id,
@@ -14,9 +14,9 @@ final as (
         location_name,
         tax_rate,
         location_opened_at,
-        date_part(month, ordered_at) as ordered_month,
-        date_part(day, ordered_at) as ordered_day, 
-        date_part(year, ordered_at) as ordered_year
+        EXTRACT(month FROM ordered_at) as ordered_month,
+        EXTRACT(day FROM ordered_at) as ordered_day, 
+        EXTRACT(year FROM ordered_at) as ordered_year
     from orders
 )
 
