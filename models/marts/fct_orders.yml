@@ -5,7 +5,7 @@ models:
       contract:
         enforced: true
     columns:
-      - name: order_item_id
+      - name: order_id
         data_type: string
         constraints:
           - type: not_null
